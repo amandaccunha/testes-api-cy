@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clonar o repositorio') {
+            steps {
+                git branch: 'main', url: 'https://github.com/amandaccunha/testes-api-cy.git'
+            }
+        }
+        stage('Instalar Dependencias') {
+            steps {
+                bat 'npm install'
+            }
+        }
+        stage('Executar Testes') {
+            steps {
+                bat 'set CYPRESS_VERIFY_TIMEOUT=100000 npm run cy:run'
+            }
+        }
+    }
+}
